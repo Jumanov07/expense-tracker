@@ -14,9 +14,13 @@ const AddTransaction = () => {
       text,
       amount: +amount,
     };
+
     if (text.trim().length && amount.trim().length) {
       addTransaction(newTransaction);
+    } else {
+      alert("Fill in all fields!");
     }
+
     setText("");
     setAmount("");
   };
