@@ -1,19 +1,23 @@
-import React, { useContext } from "react";
-import { GlobalContext } from "../context/GlobalState";
+import { useContext } from "react";
+import { GlobalContext } from "../context/GlobalProvider";
 
 const IncomeExpenses = () => {
   const { transactions } = useContext(GlobalContext);
 
-  const amounts = transactions.map((transaction) => transaction.amount);
-  const income = amounts
+  const amounts: number[] = transactions
+    .map((transaction) => transaction.amount)
+    .filter((amount): amount is number => amount !== undefined);
+
+  const income: string = amounts
     .filter((item) => item > 0)
     .reduce((acc, item) => (acc += item), 0)
     .toFixed(2);
 
-  const expense = amounts
+  const expense: string = amounts
     .filter((item) => item < 0)
     .reduce((acc, item) => (acc += item), 0)
     .toFixed(2);
+
   return (
     <div className="inc-exp-container">
       <div>
